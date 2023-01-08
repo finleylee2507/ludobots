@@ -10,8 +10,9 @@ p.setGravity(0,0,-9.8)
 
 #set floor
 planeId = p.loadURDF("plane.urdf")
+robotId = p.loadURDF("body.urdf")
 #read in the world described in box.sdf
-p.loadSDF("boxes.sdf")
+p.loadSDF("world.sdf")
 for i in range(1000000):
     print(i)
     time.sleep(1/60)
