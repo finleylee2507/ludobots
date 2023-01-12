@@ -1,15 +1,4 @@
-import time
-
-import numpy
-import pybullet as p
-import pybullet_data
-
-import constants as c
-import pyrosim.pyrosim as pyrosim
 from simulation import SIMULATION
-
-
-
 
 # # back leg config
 # amplitudeBackLeg = c.amplitudeBackLeg
@@ -90,5 +79,4 @@ from simulation import SIMULATION
 # p.disconnect()
 
 
-simulation=SIMULATION()
-
+simulation = SIMULATION()
