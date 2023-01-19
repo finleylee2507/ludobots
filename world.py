@@ -2,9 +2,10 @@ import pybullet as p
 
 
 class WORLD:
-    def __int__(self):
-        # set floor
-        self.planeId = p.loadURDF("plane.urdf")
 
-        # read in the world described in box.sdf
+    def __init__(self):
+        print("hello world")
+        self.planeId=p.loadURDF("plane.urdf")
         p.loadSDF("world.sdf")
+
+
