@@ -9,9 +9,13 @@ from world import WORLD
 
 class SIMULATION:
 
-    def __init__(self):
-        print("simulation created")
-        self.physicsClient = p.connect(p.GUI)
+    def __init__(self, directOrGUI):
+
+        self.directOrGUI=directOrGUI
+        if directOrGUI == "DIRECT":
+            self.physicsClient = p.connect(p.DIRECT)
+        else:
+            self.physicsClient = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
         # add gravity
@@ -24,11 +28,14 @@ class SIMULATION:
     def __del__(self):
         p.disconnect()
 
-
     def Run(self):
-        for i in range(1000):
-            time.sleep(1 / 240)
+        for i in range(500):
+            if self.directOrGUI=="GUI":
+                time.sleep(1 / 240)
             p.stepSimulation()
             self.robot.Sense(i)
             self.robot.Think()
             self.robot.Act(i)
+
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
