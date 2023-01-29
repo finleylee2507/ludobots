@@ -9,9 +9,9 @@ from world import WORLD
 
 class SIMULATION:
 
-    def __init__(self, directOrGUI):
+    def __init__(self, directOrGUI, solutionID):
 
-        self.directOrGUI=directOrGUI
+        self.directOrGUI = directOrGUI
         if directOrGUI == "DIRECT":
             self.physicsClient = p.connect(p.DIRECT)
         else:
@@ -22,7 +22,7 @@ class SIMULATION:
         p.setGravity(0, 0, -9.8)
 
         self.world = WORLD()
-        self.robot = ROBOT()
+        self.robot = ROBOT(solutionID)
 
     # destructor
     def __del__(self):
@@ -30,7 +30,7 @@ class SIMULATION:
 
     def Run(self):
         for i in range(500):
-            if self.directOrGUI=="GUI":
+            if self.directOrGUI == "GUI":
                 time.sleep(1 / 240)
             p.stepSimulation()
             self.robot.Sense(i)
