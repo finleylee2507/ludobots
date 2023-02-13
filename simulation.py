@@ -10,7 +10,6 @@ from world import WORLD
 class SIMULATION:
 
     def __init__(self, directOrGUI, solutionID):
-
         self.directOrGUI = directOrGUI
         if directOrGUI == "DIRECT":
             self.physicsClient = p.connect(p.DIRECT)
@@ -29,7 +28,7 @@ class SIMULATION:
         p.disconnect()
 
     def Run(self):
-        for i in range(500):
+        for i in range(1000):
             if self.directOrGUI == "GUI":
                 time.sleep(1 / 240)
             p.stepSimulation()
