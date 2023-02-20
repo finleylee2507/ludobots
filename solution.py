@@ -58,12 +58,24 @@ class SOLUTION:
 
     def Create_Body(self):
         
-        # #method to prevent links from generating within each other
-        # def Is_Opposite(currDirection,lastDirection):
-        #     if currDirection==0: #forward down and backward up 
-        #         return lastDirection==4 
-        #     if currDirection==1:#forward down and backward up 
-        #         return lastDirection==
+        #method to prevent links from generating within each other
+        def Is_Opposite(currDirection,lastDirection):
+            if currDirection==0: #forward down and backward up 
+                return lastDirection==5
+            if currDirection==1:#forward up and backward down
+                return lastDirection==4
+            if currDirection==2: #right down and left up
+                return lastDirection==7 
+            if currDirection==3: #right up and left down 
+                return lastDirection==6 
+            if currDirection==4: #backward down and forward up 
+                return lastDirection==1
+            if currDirection==5:#backward up and forward down 
+                return lastDirection==0 
+            if currDirection==6: #left down and right up
+                return lastDirection==3
+            if currDirection==7:#left up and right down 
+                return lastDirection==2 
 
         pyrosim.Start_URDF("body.urdf")
 
@@ -104,8 +116,13 @@ class SOLUTION:
         lastWidth = width
         lastHeight = height
 
+        lastDirection=-1 #initialize the last direction
         for i in range(2, self.num_links):
             direction = random.randint(0, 7)
+            while(Is_Opposite(direction, lastDirection)):
+                direction=random.randint(0, 7) 
+            
+            lastDirection=direction 
             length, width, height = np.random.uniform(0.2, 1, 3)
             curr_name = f"Link{i}"
             parent_name = f"Link{i-1}"
