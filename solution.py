@@ -10,18 +10,20 @@ from pyrosim import pyrosim
 class SOLUTION:
     def __init__(self, nextAvailableID):
         self.myID = nextAvailableID
-        self.num_links = random.randint(2, 10)
-        # self.num_links=2
+        self.num_links = random.randint(3, 20)
+        # self.num_links = 2
         self.sensor_neuron_count = 0
         self.motor_neuron_count = 0
-        self.links_with_sensors = []
+        self.links_with_sensors = ['Link0']  # the head always has sensor on it
+        self.weights = []
 
         # randomly asssign sensors to links
-        for i in range(self.num_links):
+        for i in range(1, self.num_links):
             random_num = random.uniform(0, 1)
             link_name = f"Link{i}"
             if random_num > 0.4:
                 self.links_with_sensors.append(link_name)
+                
 
         print("selected: ", self.links_with_sensors)
 
@@ -58,51 +60,110 @@ class SOLUTION:
 
         pyrosim.Start_URDF("body.urdf")
 
-        # create links
-        for i in range(self.num_links):
+        length, width, height = np.random.uniform(0.2, 1, 3)
+        currPos = [0, 0, 1+height/2]
+
+        # first link
+        if "Link0" in self.links_with_sensors:  # with sensor
+            pyrosim.Send_Cube(name="Link0", pos=currPos, size=[
+                              length, width, height], color_name='Green', color_string='    <color rgba="0.0 128.0 1.0 1.0"/>')
+        else:
+            pyrosim.Send_Cube(name="Link0", pos=currPos, size=[
+                              length, width, height], color_name='Blue', color_string='    <color rgba="0.0 0.0 255.0 1.0"/>')
+
+        # first joint
+        pyrosim.Send_Joint(
+            name="Link0_Link1",
+            parent="Link0",
+            child="Link1",
+            type="revolute",
+            position=[length / 2, 0, 1 + height],
+            jointAxis="0 1 0"
+        )
+
+        # second link
+        length, width, height == np.random.uniform(
+            0.2, 1, 3)
+        if "Link1" in self.links_with_sensors:
+            pyrosim.Send_Cube(name="Link1", pos=[length/2, 0, -height/2], size=[
+                              length, width, height], color_name='Green', color_string='    <color rgba="0.0 128.0 1.0 1.0"/>')
+
+        else:
+            pyrosim.Send_Cube(name="Link1", pos=[length/2, 0, -height/2], size=[
+                length, width, height], color_name='Blue', color_string='    <color rgba="0.0 0.0 255.0 1.0"/>')
+
+        c = [length/2, 0, -height/2]
+        lastLength = length
+        lastWidth = width
+        lastHeight = height
+
+        for i in range(2, self.num_links):
+            direction = random.randint(0, 7)
             length, width, height = np.random.uniform(0.2, 1, 3)
-            name = f"Link{i}"
+            curr_name = f"Link{i}"
+            parent_name = f"Link{i-1}"
 
-            print("Link: ", name)
-            if i == 0:  # first link (absolute positioning)
-                pos = [-length / 2, 0, height / 2]
-
-                # pyrosim.Send_Cube(name=name, pos=pos, size=[
-                #                   length, width, height])
-
-                if name in self.links_with_sensors:  # color links with sensor green
-                    print("Painting green")
-                    pyrosim.Send_Cube(
-                        name=name, pos=pos, size=[length, width, height], color_name='Green', color_string='    <color rgba="0.0 128.0 1.0 1.0"/>')
-                else:  # use default color for links without sensor
-                    print("Painting blue")
-                    pyrosim.Send_Cube(
-                        name=name, pos=pos, size=[length, width, height], color_name='Blue',color_string='    <color rgba="0.0 0.0 255.0 1.0"/>')
-
+            if curr_name in self.links_with_sensors:
+                color_name = 'Green'
+                color_string = '    <color rgba="0.0 128.0 1.0 1.0"/>'
             else:
-                parent = f"Link{i - 1}"
-                diff = (height / 2) - (last_height / 2)
+                color_name = 'Blue'
+                color_string = '    <color rgba="0.0 0.0 255.0 1.0"/>'
 
-                if i == 1:
-                    # absolutely positioned joint
-                    pyrosim.Send_Joint(name=f"{parent}_{name}", parent=parent, child=name, type="revolute",
-                                       position=[-last_length, 0, height / 2], jointAxis="1 0 0")
-                else:
-                    # relatively positioned joint
-                    pyrosim.Send_Joint(name=f"{parent}_{name}", parent=parent, child=name, type="revolute",
-                                       position=[-last_length, 0, diff], jointAxis="1 0 0")
+            if direction in [0, 1]:  # forward
+                if direction == 0:  # forward up
+                    pos = [length / 2, 0, -height / 2]
+                else:  # forward down
+                    pos = [length / 2, 0, height / 2]
+                joint_axis = "0 1 0"
+                pos1 = [c[0] + lastLength / 2, c[1], c[2] + lastHeight / 2]
+                c = [pos[0], pos[1], pos[2]]
+            elif direction in [2, 3]:  # right
+                if direction == 2:  # right up
+                    pos = [0, width / 2, -height / 2]
+                else:  # right down
+                    pos = [0, width / 2, height / 2]
+                joint_axis = "1 0 0"
+                pos1 = [c[0], c[1] + lastWidth / 2, c[2] + lastHeight / 2]
+                c = [pos[0], pos[1], pos[2]]
+            elif direction in [4, 5]:  # backward
+                if direction == 4:  # backward down
+                    pos = [-length / 2, 0, -height / 2]
+                else:  # backward up
+                    pos = [-length / 2, 0, height / 2]
+                joint_axis = "0 1 0"
+                pos1 = [c[0] - lastLength / 2, c[1], c[2] + lastHeight / 2]
+                c = [pos[0], pos[1], pos[2]]
+            else:  # left
+                if direction == 6:  # left down
+                    pos = [0, -width / 2, -height / 2]
+                else:  # left up
+                    pos = [0, -width / 2, height / 2]
+                joint_axis = "1 0 0"
+                pos1 = [c[0], c[1] - lastWidth / 2, c[2] + lastHeight / 2]
+                c = [pos[0], pos[1], pos[2]]
 
-                if name in self.links_with_sensors:  # color links with sensor green
-                    print("Painting green")
-                    pyrosim.Send_Cube(
-                        name=name, pos=[-length / 2, 0, 0], size=[length, width, height], color_name='Green',color_string='    <color rgba="0.0 128.0 1.0 1.0"/>')
-                else:  # use default color for links without sensor
-                    print("Painting blue")
-                    pyrosim.Send_Cube(
-                        name=name, pos=[-length / 2, 0, 0], size=[length, width, height], color_name='Blue',color_string='    <color rgba="0.0 0.0 255.0 1.0"/>')
+            pyrosim.Send_Joint(
+                name=f"{parent_name}_{curr_name}",
+                parent=parent_name,
+                child=curr_name,
+                type="revolute",
+                position=pos1,
+                jointAxis=joint_axis
+            )
 
-            last_length = length
-            last_height = height
+            pyrosim.Send_Cube(
+                name=curr_name,
+                pos=pos,
+                size=[length, width, height],
+                color_name=color_name,
+                color_string=color_string
+            )
+
+            # update last dimensions so they can be referred to in the next iteration
+            lastLength = length
+            lastWidth = width
+            lastHeight = height
 
         pyrosim.End()
 
@@ -110,18 +171,10 @@ class SOLUTION:
 
         pyrosim.Start_NeuralNetwork(f"brain{self.myID}.nndf")
 
-        # for i in range(self.num_links):
-        #     random_num = random.uniform(0, 1)
-        #     link_name = f"Link{i}"
-        #     if random_num > 0.5:  # place sensor neuron
-        #         pyrosim.Send_Sensor_Neuron(
-        #             name=self.sensor_neuron_count, linkName=link_name)
-        #         self.sensor_neuron_count += 1
-
         for link_name in self.links_with_sensors:
             pyrosim.Send_Sensor_Neuron(
                 name=self.sensor_neuron_count, linkName=link_name)
-            self.sensor_neuron_count += 1
+            self.sensor_neuron_count+=1 
 
         for i in range(1, self.num_links):
             curr = f"Link{i}"
@@ -133,14 +186,15 @@ class SOLUTION:
 
         print("Num sensor: ", self.sensor_neuron_count,
               " Num motor: ", self.motor_neuron_count)
-        # self.weights = np.random.rand(self.sensor_neuron_count, self.motor_neuron_count) * 2 - 1
+        self.weights = np.random.rand(self.sensor_neuron_count, self.motor_neuron_count) * 2 - 1
 
+       
         # connect sensor neurons to motor neurons
         for currentRow in range(0, self.sensor_neuron_count):
             for currentColumn in range(0, self.motor_neuron_count):
                 pyrosim.Send_Synapse(sourceNeuronName=currentRow,
                                      targetNeuronName=currentColumn + self.sensor_neuron_count,
-                                     weight=1)
+                                     weight=self.weights[currentRow,currentColumn])
 
         pyrosim.End()
 
