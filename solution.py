@@ -57,6 +57,13 @@ class SOLUTION:
         pyrosim.End()
 
     def Create_Body(self):
+        
+        # #method to prevent links from generating within each other
+        # def Is_Opposite(currDirection,lastDirection):
+        #     if currDirection==0: #forward down and backward up 
+        #         return lastDirection==4 
+        #     if currDirection==1:#forward down and backward up 
+        #         return lastDirection==
 
         pyrosim.Start_URDF("body.urdf")
 
@@ -111,17 +118,17 @@ class SOLUTION:
                 color_string = '    <color rgba="0.0 0.0 255.0 1.0"/>'
 
             if direction in [0, 1]:  # forward
-                if direction == 0:  # forward up
+                if direction == 0:  # forward down
                     pos = [length / 2, 0, -height / 2]
-                else:  # forward down
+                else:  # forward up
                     pos = [length / 2, 0, height / 2]
                 joint_axis = "0 1 0"
                 pos1 = [c[0] + lastLength / 2, c[1], c[2] + lastHeight / 2]
                 c = [pos[0], pos[1], pos[2]]
             elif direction in [2, 3]:  # right
-                if direction == 2:  # right up
+                if direction == 2:  # right down
                     pos = [0, width / 2, -height / 2]
-                else:  # right down
+                else:  # right up
                     pos = [0, width / 2, height / 2]
                 joint_axis = "1 0 0"
                 pos1 = [c[0], c[1] + lastWidth / 2, c[2] + lastHeight / 2]
