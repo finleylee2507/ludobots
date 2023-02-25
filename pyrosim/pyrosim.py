@@ -106,11 +106,18 @@ def Prepare_To_Simulate(bodyID):
 
     Prepare_Joint_Dictionary(bodyID)
 
-def Send_Cube(name="default",pos=[0,0,0],size=[1,1,1],color_name='Cyan',color_string='    <color rgba="0 1.0 1.0 1.0"/>'):
+def Send_Cube(name="default",pos=[0,0,0],size=[1,1,1],isSensor=False):
 
     global availableLinkIndex
 
     global links
+
+    if isSensor:
+        color_name='Green'
+        color_string='    <color rgba="0.0 128.0 1.0 1.0"/>'
+    else:
+        color_name='Blue'
+        color_string='    <color rgba="0.0 0.0 255.0 1.0"/>'
 
     if filetype == SDF_FILETYPE:
 
