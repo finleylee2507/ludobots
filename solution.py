@@ -123,7 +123,7 @@ class SOLUTION:
     def Create_Body(self):
         pyrosim.Start_URDF("body.urdf")
 
-        # first generate links in the y direction
+        # first generate links in the +y direction
         num_links_y = random.randint(3, 8)
 
         # Generate random sizes for each link
