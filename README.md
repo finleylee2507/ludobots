@@ -49,7 +49,7 @@ The robot should move further and further into the screen (in the -x direction)
 ![Plot](curves/Curve1.png)
 ## Video:
 
-https://youtube.com/shorts/13u9Zq0dim8?feature=share
+https://youtube.com/shorts/7d0gmsEixBk?feature=share
 
 ## Resources
 
