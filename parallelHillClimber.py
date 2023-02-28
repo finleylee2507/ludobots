@@ -16,27 +16,33 @@ class PARALLEL_HILL_CLIMBER:
             self.parents[i] = SOLUTION(self.nextAvailableID)
             self.nextAvailableID += 1
 
-    def Evolve_For_One_Generation(self):
-        self.Spawn()
-        self.Mutate()
-        self.Evaluate(self.children)
-
-        #
-        self.Print()
-        self.Select()
-
-    def Print(self):
-        for key, parent in self.parents.items():
-            print("Parent fitness, ", self.parents[key].fitness, " Children fitness: ", self.children[key].fitness)
-
-        print(" ")
-
     def Evolve(self):
 
         self.Evaluate(self.parents)
-
+        self.Log_Best()
+        self.Show_Best()
         for currentGeneration in range(constants.numberOfGenerations):
-            self.Evolve_For_One_Generation()
+            self.Evolve_For_One_Generation(currentGeneration)
+            self.Log_Best()
+
+    def Evolve_For_One_Generation(self, currentGeneration):
+
+        self.Spawn()  # spawn children
+        self.Mutate()  # mutate children
+        self.Evaluate(self.children)  # evaluate children fitness by running simulation
+
+        self.Print(currentGeneration)
+        self.Select()  # selectly replace parents with children if they have better fitness
+
+    def Print(self, currentGeneration):
+        print("\n")
+        print(f"---- Generation: {currentGeneration} ---- ")
+        for key, parent in self.parents.items():
+            print("Parent fitness, ", self.parents[key].fitness, " Children fitness: ", self.children[key].fitness)
+
+        print("-------------------------- ")
+
+        print("\n")
 
     def Spawn(self):
         self.children = {}
@@ -53,14 +59,14 @@ class PARALLEL_HILL_CLIMBER:
     def Select(self):
         for key, parent in self.parents.items():
 
-            if self.parents[key].fitness > self.children[key].fitness:
+            if self.parents[key].fitness < self.children[key].fitness:
                 self.parents[key] = self.children[key]
 
     def Show_Best(self):
-        bestValue = sys.maxsize
-        bestParent = None
+        bestValue = self.parents[0].fitness
+        bestParent = self.parents[0]
         for key, parent in self.parents.items():
-            if parent.fitness < bestValue:
+            if parent.fitness > bestValue:
                 bestValue = parent.fitness
                 bestParent = parent
 
@@ -68,7 +74,21 @@ class PARALLEL_HILL_CLIMBER:
         bestParent.Start_Simulation("GUI")
 
         # self.parent.Evaluate("GUI")
-        pass
+
+    def Log_Best(self):
+        bestValue = self.parents[0].fitness
+        for key, parent in self.parents.items():
+            if parent.fitness > bestValue:
+                bestValue = parent.fitness
+        directory = './fitness'
+
+        if not os.path.exists(directory):
+            os.mkdir(directory)
+
+        f = open(f"{directory}/{constants.populationSize}_{constants.numberOfGenerations}_{constants.seed}.txt", "a")
+        print("Best value: ", bestValue)
+        f.write(f"{bestValue}\n")
+        f.close()
 
     def Evaluate(self, solutions):
         for key, solution in solutions.items():

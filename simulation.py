@@ -3,6 +3,7 @@ import time
 import pybullet as p
 import pybullet_data
 
+import constants
 from robot import ROBOT
 from world import WORLD
 
@@ -29,9 +30,9 @@ class SIMULATION:
         p.disconnect()
 
     def Run(self):
-        for i in range(1000):
+        for i in range(constants.simulationSteps):
             if self.directOrGUI == "GUI":
-                time.sleep(1 / 240)
+                time.sleep(1 / 60)
             p.stepSimulation()
             self.robot.Sense(i)
             self.robot.Think()

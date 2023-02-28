@@ -10,10 +10,15 @@ amplitudeFrontLeg = numpy.pi / 4
 frequencyFrontLeg = 10
 phaseOffsetFrontLeg = 0
 
-numberOfGenerations = 1
+numberOfGenerations = 0
 populationSize = 1
 
-numSensorNeurons = 9
-numMotorNeurons = 8
 
-motorJointRange=0.2
+motorJointRange=0.3
+
+seed=1 
+
+supressError=True
+
+simulationSteps=1000
+

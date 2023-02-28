@@ -29,11 +29,11 @@ class NEURAL_NETWORK:
         print("")
 
     def Update(self):
-        for neuronName in self.neurons:
-            if self.neurons[neuronName].Is_Sensor_Neuron():
-                self.neurons[neuronName].Update_Sensor_Neuron()
+         for k, v in self.neurons.items():
+            if self.neurons[k].Is_Sensor_Neuron():
+                self.neurons[k].Update_Sensor_Neuron()
             else:
-                self.neurons[neuronName].Update_Hidden_Or_Motor_Neuron(self.neurons, self.synapses)
+                self.neurons[k].Update_Hidden_Or_Motor_Neuron(self.neurons, self.synapses)
 
     def Get_Neuron_Names(self):
         return self.neurons.keys()
