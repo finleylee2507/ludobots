@@ -20,5 +20,5 @@ class MOTOR:
 
             targetPosition=desiredAngle,
 
-            maxForce=150)
+            maxForce=300)
 

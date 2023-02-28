@@ -20,13 +20,13 @@ class SOLUTION:
         self.join_axis=[]
 
     def randomize(self):
-        self.num_links_y = random.randint(3, 8)
+        self.num_links_y = 2
         self.num_expansions_x = [random.randint(
-            0, 3) for _ in range(self.num_links_y)]
+            0, 2) for _ in range(self.num_links_y)]
         self.num_expansions_neg_x = [random.randint(
             0, 2) for _ in range(self.num_links_y)]
         self.num_expansions_z = [random.randint(
-            0, 1) for _ in range(self.num_links_y)]
+            0, 2) for _ in range(self.num_links_y)]
 
         # randomly assign sensors to links
         self.is_sensor_y = [random.choice([True, False])
@@ -37,7 +37,7 @@ class SOLUTION:
         self.is_sensor_neg_x = [[random.choice([True, False]) for _ in range(self.num_expansions_neg_x[i])] for i
                                 in range(len(self.num_expansions_neg_x))]
 
-        self.is_sensor_z = [[random.choice([True, False, False]) for j in range(self.num_expansions_z[i])] for i in
+        self.is_sensor_z = [[random.choice([True, False]) for j in range(self.num_expansions_z[i])] for i in
                             range(len(self.num_expansions_z))]
 
         # randomly assign link sizes
@@ -121,14 +121,14 @@ class SOLUTION:
             link_name = "+X"
             joint_pos = [parent_link_dimensions[0] /
                          2, parent_link_dimensions[1] / 2, 0]
-            joint_axis = "1 0 0"
+            joint_axis = "0 1 0"
 
             link_pos = [prev_link_size[0] / 2, 0, 0]
         elif direction == 1:
             link_name = "-X"
             joint_pos = [-1 * parent_link_dimensions[0] /
                          2, parent_link_dimensions[1] / 2, 0]
-            joint_axis = "1 0 0"
+            joint_axis = "0 1 0"
             link_pos = [-1 * prev_link_size[0] / 2, 0, 0]
         elif direction == 2:
             link_name = "+Z"
@@ -206,7 +206,7 @@ class SOLUTION:
 
             # Send joint and cube
             pyrosim.Send_Joint(name=joint_name, parent=prev_link_name, child=link_name, type="revolute",
-                               position=[0, joint_pos_y, joint_pos_z], jointAxis="1 0 0")
+                               position=[0, joint_pos_y, joint_pos_z], jointAxis="0 1 0")
             is_sensor = self.is_sensor_y[i]
             if is_sensor:
                 self.linksWithSensor.append(link_name)
@@ -227,7 +227,7 @@ class SOLUTION:
             self.Expand_In_Direction(
                 self.num_expansions_neg_x[i], link_name, link_size, 1, i)
 
-            # # +z direction
+            # +z direction
             self.Expand_In_Direction(
                 self.num_expansions_z[i], link_name, link_size, 2, i)
 

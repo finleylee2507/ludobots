@@ -20,7 +20,7 @@ class PARALLEL_HILL_CLIMBER:
 
         self.Evaluate(self.parents)
         self.Log_Best()
-        self.Show_Best()
+        # self.Show_Best()
         for currentGeneration in range(constants.numberOfGenerations):
             self.Evolve_For_One_Generation(currentGeneration)
             self.Log_Best()
@@ -32,7 +32,7 @@ class PARALLEL_HILL_CLIMBER:
         self.Evaluate(self.children)  # evaluate children fitness by running simulation
 
         self.Print(currentGeneration)
-        self.Select()  # selectly replace parents with children if they have better fitness
+        self.Select()  # selectively replace parents with children if they have better fitness
 
     def Print(self, currentGeneration):
         print("\n")
