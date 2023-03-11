@@ -18,9 +18,9 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evolve(self):
 
-        self.Evaluate(self.parents)
+        self.Evaluate(self.parents) #run simulation on parents
         self.Log_Best()
-        # self.Show_Best()
+        self.Show_Best()
         for currentGeneration in range(constants.numberOfGenerations):
             self.Evolve_For_One_Generation(currentGeneration)
             self.Log_Best()
@@ -34,6 +34,12 @@ class PARALLEL_HILL_CLIMBER:
         self.Print(currentGeneration)
         self.Select()  # selectively replace parents with children if they have better fitness
 
+    def Evaluate(self, solutions):
+        for key, solution in solutions.items():
+            solution.Start_Simulation("DIRECT")
+
+        for key, solution in solutions.items():
+            solution.Wait_For_Simulation_To_End()
     def Print(self, currentGeneration):
         print("\n")
         print(f"---- Generation: {currentGeneration} ---- ")
@@ -90,9 +96,4 @@ class PARALLEL_HILL_CLIMBER:
         f.write(f"{bestValue}\n")
         f.close()
 
-    def Evaluate(self, solutions):
-        for key, solution in solutions.items():
-            solution.Start_Simulation("DIRECT")
 
-        for key, solution in solutions.items():
-            solution.Wait_For_Simulation_To_End()
