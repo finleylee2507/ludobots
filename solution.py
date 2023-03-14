@@ -34,11 +34,11 @@ class SOLUTION:
         self.randomize()
 
     def randomize(self):
-        self.num_links_y = 5  # could be randomized later as well, but set to 2 for now
+        self.num_links_y = 3  # could be randomized later as well, but set to 2 for now
         self.num_expansions_x = [random.randint(
-            0, 2) for _ in range(self.num_links_y)]
+            0, 3) for _ in range(self.num_links_y)]
         self.num_expansions_neg_x = [random.randint(
-            0, 2) for _ in range(self.num_links_y)]
+            0, 3) for _ in range(self.num_links_y)]
         self.num_expansions_z = [random.randint(
             0, 2) for _ in range(self.num_links_y)]
 
@@ -153,11 +153,11 @@ class SOLUTION:
             0, 0, head_link_size[2] / 2], size=head_link_size, isSensor=True)
         self.currLink+=1
 
-        # Generate all other links and joints
+        # Generate all other links and joints in the y direction
         for i in range(1, self.num_links_y):
             link_size = self.link_sizes_y[i]
-            link_name = f"Link{i}"
-            prev_link_name = f"Link{i - 1}"
+            link_name = f"Link{self.currLink}"
+            prev_link_name = f"Link{self.currLink - 1}"
             joint_name = f"{prev_link_name}_{link_name}"
             self.currLink+=1
             # Determine joint position
@@ -182,18 +182,24 @@ class SOLUTION:
             prev_link_name = link_name
             prev_link_size = link_size
 
-            # expand in different directions with randomly selected number of links
+
+        #for each link (except for the head) in y, expand in +x, -x and +z direction
+        for i in range(1,self.num_links_y):
+            parent_name=f"Link{i}"
+            parent_size = self.link_sizes_y[i]
 
             # +x direction
             self.Expand_In_Direction(
-                self.num_expansions_x[i], link_name, link_size, 0, i)
-            # # -x direction
+                self.num_expansions_x[i], parent_name, parent_size, 0, i)
+
+            # -x direction
             self.Expand_In_Direction(
-                self.num_expansions_neg_x[i], link_name, link_size, 1, i)
-            
+                self.num_expansions_neg_x[i], parent_name, parent_size, 1, i)
+
             # +z direction
             self.Expand_In_Direction(
-                self.num_expansions_z[i], link_name, link_size, 2, i)
+                self.num_expansions_z[i], parent_name, parent_size, 2, i)
+
 
         pyrosim.End()
 
@@ -284,14 +290,7 @@ class SOLUTION:
                               isSensor=is_sensor)
             prev_link_size = link_sizes[i]
     def Create_Brain(self):
-
         pyrosim.Start_NeuralNetwork(f"brain{self.myID}.nndf")
-
-        # print("Sensors: ", len(self.linksWithSensor))
-        # print("Joints: ", len(self.jointNames))
-        #
-        # print("calculated number of sensors: ", self.num_links_with_sensors)
-        # print("calculated number of joints: ", self.num_joints)
 
         # attach sensors to links with sensors
         counter = 0
@@ -318,6 +317,7 @@ class SOLUTION:
         pyrosim.End()
 
     def Mutate(self):
+
 
         # step 1: pick a random weight to modify
         randomRow = random.randint(0, len(self.linksWithSensor) - 1)

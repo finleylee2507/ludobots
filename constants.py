@@ -10,8 +10,8 @@ amplitudeFrontLeg = numpy.pi / 4
 frequencyFrontLeg = 10
 phaseOffsetFrontLeg = 0
 
-numberOfGenerations = 1
-populationSize = 1
+numberOfGenerations = 500
+populationSize = 10
 
 
 motorJointRange=0.8

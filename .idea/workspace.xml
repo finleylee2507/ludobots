@@ -5,20 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b9a45a79-e04f-464d-bef4-241e59013065" name="Changes" comment="Checkpoint">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_27_2023_7_45_PM_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2_27_2023_7_45_PM__Changes_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analyze.py" beforeDir="false" afterPath="$PROJECT_DIR$/analyze.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitness/5_100_1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitness/5_100_2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitness/5_100_3.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitness/5_100_4.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitness/5_100_5.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitness/5_100_8.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitness284.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parallelHillClimber.py" beforeDir="false" afterPath="$PROJECT_DIR$/parallelHillClimber.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/search.py" beforeDir="false" afterPath="$PROJECT_DIR$/search.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulate_for_assignment_7.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/curves/Curve1.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/solution.py" beforeDir="false" afterPath="$PROJECT_DIR$/solution.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,11 +50,12 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.search">
+  <component name="RunManager" selected="Python.analyze">
     <configuration name="analyze" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ludobots" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -176,11 +168,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.analyze" />
         <item itemvalue="Python.search" />
         <item itemvalue="Python.simulate_for_assignment_7" />
         <item itemvalue="Python.simulate_for_assignment_6" />
         <item itemvalue="Python.automate" />
-        <item itemvalue="Python.search" />
       </list>
     </recent_temporary>
   </component>
@@ -218,6 +210,8 @@
       <workItem from="1677553856527" duration="9098000" />
       <workItem from="1677563739457" duration="235000" />
       <workItem from="1678551813086" duration="15597000" />
+      <workItem from="1678657206012" duration="2735000" />
+      <workItem from="1678722096903" duration="1486000" />
     </task>
     <task id="LOCAL-00001" summary="Checkpoint">
       <created>1677383260924</created>
@@ -262,11 +256,11 @@
     <option name="LAST_COMMIT_MESSAGE" value="Checkpoint" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ludobots$automate.coverage" NAME="automate Coverage Results" MODIFIED="1677562133793" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ludobots$automate.coverage" NAME="automate Coverage Results" MODIFIED="1678574714219" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ludobots$solution.coverage" NAME="solution Coverage Results" MODIFIED="1675888478955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ludobots$analyze.coverage" NAME="analyze Coverage Results" MODIFIED="1677544732318" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ludobots$analyze.coverage" NAME="analyze Coverage Results" MODIFIED="1678638055696" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ludobots$simulate_for_assignment_6.coverage" NAME="simulate_for_assignment_6 Coverage Results" MODIFIED="1676736532684" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ludobots$search.coverage" NAME="search Coverage Results" MODIFIED="1678574453197" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ludobots$search.coverage" NAME="search Coverage Results" MODIFIED="1678592604536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ludobots$simulate_for_assignment_7.coverage" NAME="simulate_for_assignment_7 Coverage Results" MODIFIED="1677479535090" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

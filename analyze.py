@@ -16,7 +16,7 @@ if not files:
 for file in files:
     # Get the metadata for the legend
     split_name = file.split("_")
-    legend = f"{split_name[0]} Creatures, {split_name[1]} Generations, Seed {split_name[2][0]}"
+    legend = f"Seed {split_name[2][0]}"
 
     # Read the data and plot the curve
     with open(os.path.join(DATA_DIR, file)) as f:
@@ -26,7 +26,7 @@ for file in files:
 # Format and plot
 plt.ylabel("Fitness Value")
 plt.xlabel("Generation")
-plt.title("Fitness Curves")
+plt.title(f"Fitness Curves ({split_name[0]} Creatures, {split_name[1]} Generations)")
 plt.legend()
 
 # Save the figure
