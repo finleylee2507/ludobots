@@ -1,7 +1,5 @@
 # Ludobots Final Project
 
-## Teaser
-
 ## Description
 
 This repository contains my course project for CS 396 Artificial Life. This codebase demonstrates an experiment on
